@@ -1,6 +1,7 @@
 //data
+
 const playListHipHop = {
-	playListID: "1",
+	playListId: "1",
 	headerBlock: {
 		imageCoverUrl: "./images/HipHopPlayListImages/mainCoverImage.jpg",
 		topWord: "PlayList",
@@ -50,7 +51,7 @@ const playListHipHop = {
 };
 
 const playListRapHits1990 = {
-	playListID: "2",
+	playListId: "2",
 	headerBlock: {
 		imageCoverUrl: "./images/mainCoverImage.jpg",
 		topWord: "PlayList",
@@ -136,30 +137,62 @@ function renderPlayList(anyPlayList) {
 	document.body.append(trackListElement);
 }
 
-function renderPlayListHeader(anyPlayListHeader) {
-	const playListTitleElement = document.createElement("h1");
-	playListTitleElement.append(anyPlayListHeader.title);
-	document.body.append(playListTitleElement);
+function renderPlayListHeader(playListForRendering) {
+	renderPlayListHeaderTitle(playListForRendering);
+	renderPlayListHeaderCoverImage(playListForRendering);
+	// renderAnyPlayListHeaderTitle(playListForRendering);
+	// renderAnyPlayListHeaderImage(playListForRendering);
+}
 
+function renderPlayListHeaderTitle(playListForRendering) {
+	const playListTitleElement = document.createElement("h1");
+	playListTitleElement.append(playListForRendering.title);
+	document.body.append(playListTitleElement);
+}
+function renderPlayListHeaderCoverImage(playListForRendering) {
 	const playListCoverImageElement = document.createElement("img");
-	playListCoverImageElement.src = anyPlayListHeader.imageCoverUrl;
+	playListCoverImageElement.src = playListForRendering.imageCoverUrl;
 	document.body.append(playListCoverImageElement);
 }
 function createAnyTrack(anyTrack) {
 	const trackElement = document.createElement("li");
+	if (anyTrack.isPopular) {
+		trackElement.append("📀");
+	}
 	const trackCoverElement = document.createElement("img");
 	trackCoverElement.src = anyTrack.coverTrackImg;
 	trackCoverElement.style.width = "50px";
 	trackCoverElement.style.height = "50px";
+	trackElement.append(trackCoverElement);
 
 	const audioElement = document.createElement("audio");
 	audioElement.src = anyTrack.trackFileUrl;
 	audioElement.controls = true;
-	trackElement.append(trackCoverElement);
 	trackElement.append(anyTrack.artistName + " - " + anyTrack.trackTitle);
 	trackElement.append(audioElement);
+
 	return trackElement;
 }
 
+// function renderAnyPlayListHeaderTitle(playListForRendering) {
+// 	const playListTitleElement = document.createElement("h1");
+// 	playListTitleElement.append(playListForRendering.title);
+// 	document.body.append(playListTitleElement);
+// }
+
+// function renderAnyPlayListHeaderImage(playListForRendering) {
+// 	const playListCoverImageElement = document.createElement("img");
+// 	playListCoverImageElement.src = playListForRendering.imageCoverUrl;
+// 	document.body.append(playListCoverImageElement);
+// }
 renderPlayList(playListHipHop);
 renderPlayList(playListRapHits1990);
+
+// const playListsArray = [playListHipHop, playListRapHits1990];
+
+// function renderPlayLists(playListsArray) {
+// 	for (i = 0; i < playListsArray.length; i++) {
+// 		const playListsArray = [playListHipHop, playListRapHits1990];
+// 	}
+// 	return renderPlayList;
+// }
